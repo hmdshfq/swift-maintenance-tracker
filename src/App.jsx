@@ -138,8 +138,16 @@ const App = () => {
     ? records 
     : records.filter(r => r.category === filterCategory);
 
+  const sortedRecords = [...filteredRecords].sort((a, b) => {
+    const statusA = calculateNextService(a).dueStatus;
+    const statusB = calculateNextService(b).dueStatus;
+    
+    const statusOrder = { overdue: 0, due: 1, ok: 2 };
+    return statusOrder[statusA] - statusOrder[statusB];
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 p-4">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-lg shadow-xl p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
@@ -226,7 +234,7 @@ const App = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredRecords.map((record) => {
+                {sortedRecords.map((record) => {
                   const { nextKm, nextDate, dueStatus } = calculateNextService(record);
                   const statusColor = dueStatus === 'overdue' ? 'bg-red-100' : dueStatus === 'due' ? 'bg-yellow-100' : 'bg-green-50';
                   
