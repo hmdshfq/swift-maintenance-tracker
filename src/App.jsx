@@ -228,7 +228,7 @@ const App = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredRecords.map((record) => {
                   const { nextKm, nextDate, dueStatus } = calculateNextService(record);
-                  const statusColor = dueStatus === 'overdue' ? 'bg-red-100' : dueStatus === 'due' ? 'bg-yellow-100' : '';
+                  const statusColor = dueStatus === 'overdue' ? 'bg-red-100' : dueStatus === 'due' ? 'bg-yellow-100' : 'bg-green-50';
                   
                   return (
                     <tr key={record.id} className={`hover:bg-gray-50 ${statusColor}`}>
